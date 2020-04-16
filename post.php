@@ -1,35 +1,14 @@
 <?php
-$hello = array('hello', 'chào');
-$old = array('tuổi', 'old');
-$nghe = array('nghề', 'nghiep');
-$div = "<br>";
-$rep = "";
+session_start();
+$div = "
+<div class='row fix input_user ml-auto'>
+    <div class='col-3 col-sm-3 col-md-4 col-xl-4 col-lg-4'>
+        <img src='https://img.favpng.com/20/5/24/social-media-computer-icons-avatar-user-internet-png-favpng-DwdFSAXdR58nGmLe4y67jEej0.jpg' class='img-fluid avt'>
+    </div>
+    <div class='col-9 col-sm-9 col-md-8 col-xl-8 col-lg-8'>";
+$close_div = "</div> </div>";
 $text = $_POST['text'];
-$ar = explode(" ", $text);
-for ($i = 0; $i < 100; $i++) {
-    $hello1 = in_array($hello[$i], $ar);
-    $old1 = in_array($old[$i], $ar);
-    $nghe1 = in_array($nghe[$i], $ar);
-    if ($hello1) {
-        $rep = "xin chào tôi tên bảo";
-        break;
-    }
-    if ($old1) {
-        $rep = "tôi 20 tuổi";
-        break;
-    }
-    if ($nghe1) {
-        $rep = "tôi là lập trình viên php";
-        break;
-    } else {
-        $rep = "câu hỏi này chưa được lập trình";
-
-    }
-
-}
-
+$date =  date("l jS \of F Y h:i:s A") ;
 $fp = fopen('log.html', 'a');
-fwrite($fp, stripslashes(htmlspecialchars($rep)) . $div);
+fwrite($fp,  $div . stripslashes(htmlspecialchars($_SESSION['username']. $date." : " .$text)) . " " . $close_div);
 fclose($fp);
-
-

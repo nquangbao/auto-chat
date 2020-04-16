@@ -1,0 +1,43 @@
+div#box {
+    width: 30%;
+    margin: auto;
+    border: 1px solid;
+    height: 25rem;
+    padding: 10px;
+    -webkit-box-shadow: -4px 11px 17px -5px rgba(204,190,204,1);
+    -moz-box-shadow: -4px 11px 17px -5px rgba(204,190,204,1);
+    box-shadow: -4px 11px 17px -5px rgba(204,190,204,1);
+    overflow: auto;
+
+}
+div.avt {
+    border: 1px solid;
+    border-radius: 100%;
+}
+div.fix {
+    margin: 1rem 0;
+    background: aqua;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0px;
+    color : black;
+    font-weight: bold;
+    border-radius: 15px;
+}
+div.input_user {
+    width: 100%;
+    margin-left: auto;
+    text-align: left;
+    background: red;
+}
+img {
+    border-radius: 100%;
+}
+div.form {
+   margin: auto;
+    width: 31%;
+}
+input {
+    width: 80%;
+    color : red;
+    border: 1px solid #444;
+}

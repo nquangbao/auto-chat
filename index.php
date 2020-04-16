@@ -26,11 +26,7 @@
                                     class="fas fa-user mr-1"></i>
                             Đăng nhập</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#panel8" role="tab" id="tabreg"><i
-                                    class="fas fa-user-plus mr-1 "></i>
-                            Đăng ký</a>
-                    </li>
+
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
@@ -58,47 +54,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="panel8" role="tabpanel" id="formreg">
-                        <div class="modal-body">
-                            <form action="sigup.php" name="regsite" id="regsite" method="POST">
-                                <div class="md-form form-sm ">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6 col-xl-6">
-                                            <label data-error="wrong" data-success="right" for="rguser"> Tên tài
-                                                khoản</label>
-                                            <input type="text" id="rguser"
-                                                   class="form-control form-control-sm validate" name="rguser"
-                                                   placeholder="Admin">
-                                        </div>
-                                        <div class="form-group col-md-6 col-xl-6">
-                                            <label data-error="wrong" data-success="right"
-                                                   for="rgPhone">Email</label>
-                                            <input type="email" id="rgPhone"
-                                                   class="form-control form-control-sm validate" name="rgPhone"
-                                                   placeholder="abc@domain.com">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="md-form form-sm">
-                                    <label data-error="wrong" data-success="right" for="rgPassword">Mật Khẩu</label>
 
-                                    <input type="password" id="rgPassword"
-                                           class="form-control form-control-sm validate" name="rgPassword">
-                                </div>
-                                <div class="md-form form-sm mb-2">
-                                    <label data-error="wrong" data-success="right" for="rgRpassword">Nhập lại mật
-                                        khẩu</label>
-                                    <input type="rgRpassword" id="modalLRInput14"
-                                           class="form-control form-control-sm validate" name="rgRpassword">
-                                </div>
-                        </div>
-                        <div class="text-center form-sm ">
-                            <button class="btn btn-info" type="submit">Đăng Ký <i
-                                        class="fas fa-sign-in ml-1"></i></button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
                 <div class="modal-footer">
                     <button type="button" id="submit" class="btn btn-danger waves-effect ml-auto"
                             data-dismiss="modal">Đóng
@@ -117,7 +73,6 @@
 <div>
     <?php
     require_once('connect.php');
-
     $rep = "";
     if (!$connect) {
         $rep = "KHÔNG THỂ KẾT NỐI DATABASE : ";
@@ -126,19 +81,32 @@
     if (isset($_POST['submit'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $_SESSION['username'] = $username;
+        $_SESSION['username'] = stripslashes(htmlspecialchars($_POST['username']));
         $sql = "SELECT * FROM member WHERE username='$username' and password='$password'";
+        $sql2 = "SELECT * FROM member WHERE username='$username'";
+        $insert = "INSERT INTO member (username , password) VALUES('$username' , '$password')";
+
         $query = mysqli_query($connect, $sql);
+        $query2 = mysqli_query($connect , $sql2);
         $num_row = mysqli_num_rows($query);
         if ($num_row == 0) {
-            $rep = "USERNAME or PASSWORD không tồn tại";
+            $add = mysqli_query($connect , $insert);
+            if($add){
+                $rep = "SIGUP SUCCESS . PLEASE LOGIN";
+            }
+            else {
+                $rep = "USERNAME HAS HAVE";
+            }
+
         } else {
             if(isset($_SESSION['username'])){
-                echo "<meta http-equiv='refresh' content='0;url=chatting.php'>";
+                $rep = "WANT 5S LOGIN";
+                echo "<meta http-equiv='refresh' content='5;url=chatting.php'>";
                 }
             }
         }
-    echo "<div class='alert alert-warning text-center' role='alert'> {$rep}</div>";
+        echo "<div class='alert alert-warning text-center' role='alert'> {$rep}</div>";
+
     ?>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
