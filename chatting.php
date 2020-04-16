@@ -15,9 +15,10 @@
             <?php
             session_start();
             if(isset($_SESSION['username'])){
-                if(file_exists('log.html') && filesize('log.html') > 0){
-                    $read = fopen('log.html' , 'r');
-                    $content = fread($read , filesize('log.html'));
+                $file = "log.html";
+                if(file_exists($file) && filesize($file) > 0){
+                    $read = fopen($file , 'r');
+                    $content = fread($read , filesize($file));
                     echo $content;
                 }
             }
