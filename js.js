@@ -1,17 +1,11 @@
 $('#send').click(function() {
-    var old_scrollHeight = $("#box").attr("scrollHeight") - 20
+
 
     var mes = $('#text').val()
     $.post('post.php', { text: mes })
     $('#text').val("").focus()
-    var new_scrollHeight = $("#box").attr("scrollHeight") - 20; //Scroll height after the request
-    if (new_scrollHeight > old_scrollHeight) {
-        $("#box").animate({scrollTop: new_scrollHeight}, 'normal');
-    }
     return false;
 })
-
-
 function load() {
     $.ajax({
         url: 'log.html',
